@@ -1,0 +1,58 @@
+config: configs/total3d.yaml
+data:
+  dataset: sunrgbd
+  face_samples: 1
+  split: data/sunrgbd/splits
+  tmn_subnetworks: 2
+  with_edge_classifier: true
+demo:
+  phase: joint
+demo_path: ../../data/nyuv2/format/inputs/182
+device:
+  gpu_ids: '8'
+  num_workers: 2
+  use_gpu: true
+finetune: true
+log:
+  path: out/total3d/2021-12-07T15:23:49.521875
+  print_step: 50
+  save_results: true
+  vis_path: out/total3d/2021-12-07T15:23:49.521875/visualization
+  vis_step: 100
+method: TOTAL3D
+mode: demo
+model:
+  layout_estimation:
+    loss: PoseLoss
+    method: PoseNet
+  mesh_reconstruction:
+    loss: ReconLoss
+    method: DensTMNet
+  object_detection:
+    loss: DetLoss
+    method: Bdb3DNet
+optimizer:
+  betas:
+  - 0.9
+  - 0.999
+  eps: 1e-08
+  lr: 1e-4
+  method: Adam
+  weight_decay: 1e-04
+resume: false
+scheduler:
+  factor: 0.5
+  patience: 5
+  threshold: 0.01
+seed: 123
+test:
+  batch_size: 2
+  phase: joint
+train:
+  batch_size: 2
+  epochs: 400
+  freeze:
+  - mesh_reconstruction
+  phase: joint
+weight:
+- out/pretrained_models/pretrained_model.pth
