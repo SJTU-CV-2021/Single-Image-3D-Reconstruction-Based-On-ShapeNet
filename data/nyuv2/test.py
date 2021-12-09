@@ -53,7 +53,6 @@ def plot_bbox(ax, color, label_dict, title="Bbox"):
 def test_labeled_dataset(path):
     labeled = LabeledDataset(DATASET_DIR / 'nyu_depth_v2_labeled.mat')
 
-
     color, depth, labels, instances, label_dict = labeled[22]
 
     NYU40CLASSES = ['void',
