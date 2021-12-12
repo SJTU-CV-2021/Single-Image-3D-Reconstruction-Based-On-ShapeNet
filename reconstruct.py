@@ -1,5 +1,6 @@
 import argparse
 import os
+from typing import Type
 import numpy as np
 import open3d as o3d
 from glob import glob
@@ -103,8 +104,8 @@ def format_mesh(obj_files, bboxes):
         obj = o3d.io.read_triangle_mesh(obj_file)
 
         mesh_coef = (obj.get_max_bound() - obj.get_min_bound()) / 2.
-        scale = np.diag((1./mesh_coef * np.diag(bboxes['coeffs'][obj_idx]).append(1)))
-        
+        scale = np.diag(np.append(1./mesh_coef * bboxes['coeffs'][obj_idx],1))
+        print(scale)
         obj = obj.transform(scale)
         obj = obj.rotate(bboxes['basis'][obj_idx])
 
@@ -132,20 +133,21 @@ if __name__ == '__main__':
 
     from PIL import Image, ImageDraw, ImageFont
 
-    image = np.array(Image.open(input_path, 'img.jpg').convert('RGB'))
+    image = np.array(Image.open(os.path.join(input_path, 'img.jpg')).convert('RGB'))
     cam_K = np.loadtxt(os.path.join(input_path, 'cam_K.txt'))
 
     vis = o3d.visualization.Visualizer()
-    vis.create_window(width=image.shape[0], height=image.shape[1], left=0, top=0)
+    vis.create_window(width=image.shape[1], height=image.shape[0], left=0, top=0)
     render_option: o3d.visualization.RenderOption = vis.get_render_option()	#设置点云渲染参数
     render_option.background_color = np.array([0, 255, 0])	#
-    for obj in o3d_objects:
+    for obj in o3d_objects.values():
         vis.add_geometry(obj)
-    vis.update_geometry()
+        vis.update_geometry(obj)
     vis.poll_events()
     vis.update_renderer()
     vis.capture_screen_image(os.path.join(output_path, 'visualize.png'))
-    vis.destroy_window()
+    o3d.visualization.draw_geometries([obj for obj in o3d_objects.values()])
+    # vis.destroy_window()
 
     
 
