@@ -210,13 +210,14 @@ def run(cfg):
 
     # object meshes to point cloud and matching
     best_match = [None] * len(current_cls) 
-    obj2pcd(save_path)
+    sample = True
+    obj2pcd(save_path, False)
     for obj_id, obj_cls in enumerate(current_cls):
         best_match[obj_id] = pcd_matching(os.path.join(save_path, '%s_%s.pcd' % (obj_id, obj_cls)), NYU40CLASSES[obj_cls])
         if best_match[obj_id] != None:
             print(best_match[obj_id][0])
             copyfile(os.path.join(best_match[obj_id][1], 'model.obj'), os.path.join(save_path, '%s_%s_s.obj' % (obj_id, obj_cls)))
-            copyfile(os.path.join(best_match[obj_id][1], 'model.pcd'), os.path.join(save_path, '%s_%s_s.pcd' % (obj_id, obj_cls)))
+            copyfile(os.path.join(best_match[obj_id][1], ('model_sample' if sample else'model.pcd')), os.path.join(save_path, '%s_%s_s.pcd' % (obj_id, obj_cls)))
 
     #########################################################################
     #
@@ -243,5 +244,5 @@ def run(cfg):
 
     scene_box = Box(image, None, cam_K, None, pre_cam_R, None, pre_layout, None, pre_boxes, 'prediction', output_mesh = vtk_objects)
     scene_box.draw_projected_bdb3d('prediction', if_save=True, save_path = '%s/3dbbox.png' % (save_path))
-    scene_box.draw_object(best_match, if_save=True, save_path = '%s/visualize.png' % (save_path))
+    # scene_box.draw_object(best_match, if_save=True, save_path = '%s/visualize.png' % (save_path))
     # scene_box.draw3D(if_save=True, save_path = '%s/recon.png' % (save_path))

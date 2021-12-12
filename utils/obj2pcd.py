@@ -1,9 +1,10 @@
 import os 
 import numpy as np
+import open3d as o3d
 import sys
 import shutil
 
-def obj2pcd(filedir):
+def obj2pcd(filedir, sample):
     # print('当前工作目录为：{}\n'.format(wdir))
     
     for file in os.listdir(filedir):
@@ -14,8 +15,20 @@ def obj2pcd(filedir):
         if suffix != 'obj':
             continue
         #f = open('0_pred.obj','rb')
-        new_name = prefix + '.' + 'pcd'
+        new_name = (prefix + '.pcd') if not sample else (prefix + '_sample.pcd')
         # print(new_name)
+
+        if sample:
+            mesh = o3d.io.read_triangle_mesh(os.path.join(filedir, file))
+            pcd = mesh.sample_points_poisson_disk(number_of_points=500, init_factor=4)
+            # o3d.visualization.draw_geometries([pcd])
+
+            # pcd = mesh.sample_points_uniformly(number_of_points=0000)
+            # pcd = mesh.sample_points_poisson_disk(number_of_points=2000, pcl=pcd)
+            o3d.io.write_point_cloud(os.path.join(filedir, new_name), pcd)
+            continue
+            # o3d.visualization.draw_geometries([pcd])
+
         f = open(os.path.join(filedir, new_name),'w')
     
         

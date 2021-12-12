@@ -65,7 +65,7 @@ def get_matching_result(source_path, target_path, trans_init=None, threshold=Non
     return reg_p2p
 
 
-def pcd_matching(pcd_path, obj_cls):
+def pcd_matching(pcd_path, obj_cls, sample=True):
     best_match = None
     with open(os.path.join(SHAPENET_PATH, 'taxonomy.json')) as file:
         synsetId = json.load(file)
@@ -80,10 +80,10 @@ def pcd_matching(pcd_path, obj_cls):
                     if os.path.isfile(os.path.join(tag_path, file)):
                         continue
                     model_path = os.path.join(tag_path, file)
-                    if not 'model.pcd' in os.listdir(model_path):
-                        obj2pcd(model_path)
+                    if not ('model_sample.pcd' if sample else'model.pcd') in os.listdir(model_path):
+                        obj2pcd(model_path, sample)
                     for i in range(10):
-                        result = get_matching_result(os.path.join(model_path, 'model.pcd'), pcd_path)
+                        result = get_matching_result(os.path.join(model_path, ('model_sample.pcd' if sample else'model.pcd')), pcd_path)
                         if best_match == None or best_match[0].fitness < result.fitness:
                             best_match = (result, model_path)
     if best_match != None:
@@ -93,6 +93,8 @@ def pcd_matching(pcd_path, obj_cls):
         return best_match  
     else:
         return None
+
+
 
 
 if __name__ == '__main__':
