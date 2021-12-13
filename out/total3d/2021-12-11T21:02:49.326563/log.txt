@@ -1,7 +1,0 @@
-2021-12-11 21:02:53,656 - demo - INFO - Loading configurations.
-2021-12-11 21:02:53,657 - demo - INFO - {'method': 'TOTAL3D', 'resume': False, 'finetune': True, 'weight': ['out/pretrained_models/pretrained_model.pth'], 'seed': 123, 'device': {'use_gpu': True, 'gpu_ids': '5', 'num_workers': 2}, 'data': {'dataset': 'sunrgbd', 'split': 'data/sunrgbd/splits', 'tmn_subnetworks': 2, 'face_samples': 1, 'with_edge_classifier': True}, 'model': {'layout_estimation': {'method': 'PoseNet', 'loss': 'PoseLoss'}, 'object_detection': {'method': 'Bdb3DNet', 'loss': 'DetLoss'}, 'mesh_reconstruction': {'method': 'DensTMNet', 'loss': 'ReconLoss'}}, 'optimizer': {'method': 'Adam', 'lr': '1e-4', 'betas': [0.9, 0.999], 'eps': '1e-08', 'weight_decay': '1e-04'}, 'scheduler': {'patience': 5, 'factor': 0.5, 'threshold': 0.01}, 'train': {'epochs': 400, 'phase': 'joint', 'freeze': ['mesh_reconstruction'], 'batch_size': 2}, 'test': {'phase': 'joint', 'batch_size': 2}, 'demo': {'phase': 'joint'}, 'log': {'vis_path': 'out/total3d/2021-12-11T21:02:49.326563/visualization', 'save_results': True, 'vis_step': 100, 'print_step': 50, 'path': 'out/total3d/2021-12-11T21:02:49.326563'}, 'config': 'configs/total3d.yaml', 'mode': 'demo', 'demo_path': 'demo/inputs/3'}
-2021-12-11 21:03:12,634 - demo - INFO - Data save path: out/total3d/2021-12-11T21:02:49.326563
-2021-12-11 21:03:12,635 - demo - INFO - Loading device settings.
-2021-12-11 21:03:12,635 - demo - INFO - GPU mode is on.
-2021-12-11 21:03:12,636 - demo - INFO - GPU Ids: 5 used.
-2021-12-11 21:03:12,636 - demo - INFO - Loading model.
