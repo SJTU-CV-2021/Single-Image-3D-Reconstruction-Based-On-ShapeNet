@@ -4,7 +4,7 @@ from typing import Type
 import numpy as np
 import open3d as o3d
 from glob import glob
-
+from copy import deepcopy
 
 def parse_args():
     '''PARAMETERS'''
@@ -116,6 +116,29 @@ def format_mesh(obj_files, bboxes):
 
     return o3d_objects, bboxes
 
+def normalize_point(v):
+    norm = np.linalg.norm(v)
+    if norm == 0:
+       return v
+    return v / norm
+
+def get_world_R(cam_R):
+    '''
+    set a world system from camera matrix
+    :param cam_R:
+    :return:
+    '''
+    toward_vec = deepcopy(cam_R[:,0])
+    toward_vec[1] = 0.
+    toward_vec = normalize_point(toward_vec)
+    up_vec = np.array([0., 1., 0.])
+    right_vec = np.cross(toward_vec, up_vec)
+
+    world_R = np.vstack([toward_vec, up_vec, right_vec]).T
+    # yaw, _, _ = yaw_pitch_roll_from_R(cam_R)
+    # world_R = R_from_yaw_pitch_roll(yaw, 0., 0.)
+    return world_R
+
 if __name__ == '__main__':
     args = parse_args()
     input_path = args.__dict__['input_path']
@@ -139,16 +162,23 @@ if __name__ == '__main__':
     vis = o3d.visualization.Visualizer()
     vis.create_window(width=image.shape[1], height=image.shape[0], left=0, top=0)
     render_option: o3d.visualization.RenderOption = vis.get_render_option()	#设置点云渲染参数
-    render_option.background_color = np.array([0, 255, 0])	#
+    render_option.background_color = np.array([0, 0, 0])	#
+    view_control: o3d.visualization.ViewControl = vis.get_view_control()
+
+    cam = o3d.camera.PinholeCameraIntrinsic()
+    cam.set_intrinsics(
+        width=image.shape[1], height=image.shape[0], 
+        fx=cam_K[0,0], fy=cam_K[1,1], cx=cam_K[0,2], cy=cam_K[1,2])
+
+    view_control.convert_from_pinhole_camera_parameters()
     for obj in o3d_objects.values():
         vis.add_geometry(obj)
         vis.update_geometry(obj)
     vis.poll_events()
     vis.update_renderer()
     vis.capture_screen_image(os.path.join(output_path, 'visualize.png'))
-    o3d.visualization.draw_geometries([obj for obj in o3d_objects.values()])
+    base_img = Image.open(os.path.join(output_path, 'visualize.png'))
+    image = Image.blend(image, base_img, 0.5)
+    image.save(os.path.join(output_path, 'visualize.png'))
+    # o3d.visualization.draw_geometries([obj for obj in o3d_objects.values()])
     # vis.destroy_window()
-
-    
-
-    # o3d.visualization.draw_geometries(o3d_objects, width=image.shape[0], height=image.shape[1])

@@ -52,7 +52,7 @@ def get_matching_result(source_path, target_path, trans_init=None, threshold=Non
     source = o3d.io.read_point_cloud(source_path)
     target = o3d.io.read_point_cloud(target_path)
     if threshold == None:
-        threshold = 0.02
+        threshold = 0.03
     if trans_init == None:
         # trans_init = np.asarray([[1, 0, 0, 0],
         #                     [0, 1, 0, 0],
@@ -86,8 +86,6 @@ def pcd_matching(pcd_path, obj_cls, sample=True):
                         result = get_matching_result(os.path.join(model_path, ('model_sample.pcd' if sample else'model.pcd')), pcd_path)
                         if best_match == None or best_match[0].fitness < result.fitness:
                             best_match = (result, model_path)
-    if best_match != None:
-        print(best_match[0])
     if best_match != None and best_match[0].fitness > MATCH_THRESHOLD:
         print(best_match[0])
         return best_match  
