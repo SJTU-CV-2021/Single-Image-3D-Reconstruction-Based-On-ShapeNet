@@ -6,6 +6,9 @@ import argparse
 from configs.config_utils import CONFIG
 import numpy as np
 from PIL import Image
+import json
+
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 def parse_args():
     '''PARAMETERS'''
@@ -35,7 +38,7 @@ if __name__ == '__main__':
 
     image = np.array(Image.open(os.path.join(cfg.config['demo_path'], 'img.jpg')).convert('RGB'))
     cam_K = np.loadtxt(os.path.join(cfg.config['demo_path'], 'cam_K.txt'))
-t
+
     scene_box = Box(image, None, cam_K, None, pre_cam_R, None, pre_layout, None, pre_boxes, 'prediction', output_mesh = vtk_objects)
     scene_box.draw_projected_bdb3d('prediction', if_save=True, save_path = '%s/3dbbox.png' % (save_path))
     # scene_box.draw_object(best_match, if_save=True, save_path = '%s/visualize.png' % (save_path))

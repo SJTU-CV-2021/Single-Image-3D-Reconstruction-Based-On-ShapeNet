@@ -71,8 +71,8 @@ def format_mesh(obj_files, bboxes, trans):
 
         if trans[str(obj_idx)] != None:
             matrix = np.array(trans[str(obj_idx)])
-            points = points.dot(matrix[0:2, 0:2])
-            points = points + matrix[0:2, 3]
+            points = points.dot(matrix[0:3, 0:3])
+            points = points + matrix[0:3, 3]
 
         points_array = numpy_to_vtk(points, deep=True)
         polydata.GetPoints().SetData(points_array)
