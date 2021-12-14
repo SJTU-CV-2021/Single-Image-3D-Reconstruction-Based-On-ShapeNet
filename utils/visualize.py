@@ -38,7 +38,7 @@ def get_rotation_matrix(cam_data, bin):
     return R
 
 
-def format_mesh(obj_files, bboxes, match_data):
+def format_mesh(obj_files, bboxes, trans):
 
     vtk_objects = {}
 
@@ -69,8 +69,8 @@ def format_mesh(obj_files, bboxes, match_data):
         # move to center
         points = points + bboxes['centroid'][obj_idx]
 
-        if len(filename.split('_')) > 2:
-            matrix = match_data[obj_idx][0].transformation
+        if trans[str(obj_idx)] != None:
+            matrix = np.array(trans[str(obj_idx)])
             points = points.dot(matrix[0:2, 0:2])
             points = points + matrix[0:2, 3]
 

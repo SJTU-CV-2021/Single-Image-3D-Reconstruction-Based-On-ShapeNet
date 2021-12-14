@@ -210,6 +210,7 @@ def run(cfg):
 
     # object meshes to point cloud and matching
     best_match = {}
+    trans = {}
     sample = True
     obj2pcd(save_path, False)
     for obj_id, obj_cls in enumerate(current_cls):
@@ -217,9 +218,11 @@ def run(cfg):
         if best_match[obj_id] != None:
             print(best_match[obj_id][0])
             copyfile(os.path.join(best_match[obj_id][1], 'model.obj'), os.path.join(save_path, '%s_%s_s.obj' % (obj_id, obj_cls)))
-            
+            trans[obj_id] = best_match[obj_id][0].transformation.tolist()
             # copyfile(os.path.join(best_match[obj_id][1], ('model_sample.pcd' if sample else'model.pcd')), os.path.join(save_path, '%s_%s_s.pcd' % (obj_id, obj_cls)))
-    savemat(os.path.join(save_path, 'match.mat'), mdict={'best_match': best_match})
+    # print(best_match)
+    json.dump(trans, open(os.path.join(save_path, 'match.json'), 'w'))
+    # savemat(os.path.join(save_path, 'match.mat'), mdict={'best_match': best_match})
 
     #########################################################################
     #
@@ -235,12 +238,12 @@ def run(cfg):
     pre_layout_data = sio.loadmat(os.path.join(save_path, 'layout.mat'))['layout']
     pre_box_data = sio.loadmat(os.path.join(save_path, 'bdb_3d.mat'))
 
-    match_data = sio.loadmat(os.path.join(save_path, 'match.mat'))
+    trans = json.load(open(os.path.join(save_path, 'match.json')))
     pre_boxes = format_bbox(pre_box_data, 'prediction')
     pre_layout = format_layout(pre_layout_data)
     pre_cam_R = sio.loadmat(os.path.join(save_path, 'r_ex.mat'))['cam_R']
 
-    vtk_objects, pre_boxes = format_mesh(glob(os.path.join(save_path, '*.obj')), pre_boxes, match_data)
+    vtk_objects, pre_boxes = format_mesh(glob(os.path.join(save_path, '*.obj')), pre_boxes, trans)
 
     image = np.array(Image.open(os.path.join(cfg.config['demo_path'], 'img.jpg')).convert('RGB'))
     cam_K = np.loadtxt(os.path.join(cfg.config['demo_path'], 'cam_K.txt'))

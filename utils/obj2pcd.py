@@ -15,7 +15,7 @@ def obj2pcd(filedir, shapenet):
         if suffix != 'obj':
             continue
         #f = open('0_pred.obj','rb')
-        new_name = (prefix + '.pcd') if not sample else (prefix + '_sample.pcd')
+        new_name = (prefix + '.pcd') if not shapenet else (prefix + '_sample.pcd')
         # print(new_name)
 
         if shapenet:
