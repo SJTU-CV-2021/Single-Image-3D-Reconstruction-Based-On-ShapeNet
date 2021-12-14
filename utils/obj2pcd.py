@@ -4,7 +4,7 @@ import open3d as o3d
 import sys
 import shutil
 
-def obj2pcd(filedir, sample):
+def obj2pcd(filedir, shapenet):
     # print('当前工作目录为：{}\n'.format(wdir))
     
     for file in os.listdir(filedir):
@@ -18,7 +18,7 @@ def obj2pcd(filedir, sample):
         new_name = (prefix + '.pcd') if not sample else (prefix + '_sample.pcd')
         # print(new_name)
 
-        if sample:
+        if shapenet:
             mesh = o3d.io.read_triangle_mesh(os.path.join(filedir, file))
             pcd = mesh.sample_points_poisson_disk(number_of_points=500, init_factor=4)
             # o3d.visualization.draw_geometries([pcd])
@@ -28,10 +28,18 @@ def obj2pcd(filedir, sample):
             o3d.io.write_point_cloud(os.path.join(filedir, new_name), pcd)
             continue
             # o3d.visualization.draw_geometries([pcd])
+        else:
+            mesh = o3d.io.read_triangle_mesh(os.path.join(filedir, file))
+            mesh = mesh.scale(1 / 2.6, center=mesh.get_center())
+            pcd = mesh.sample_points_poisson_disk(number_of_points=1500, init_factor=4)
+            # o3d.visualization.draw_geometries([pcd])
 
+            # pcd = mesh.sample_points_uniformly(number_of_points=0000)
+            # pcd = mesh.sample_points_poisson_disk(number_of_points=2000, pcl=pcd)
+            o3d.io.write_point_cloud(os.path.join(filedir, new_name), pcd)
+            continue
         f = open(os.path.join(filedir, new_name),'w')
-    
-        
+
         #pcd的数据格式 https://blog.csdn.net/BaiYu_King/article/details/81782789  
         
         lines_v = []

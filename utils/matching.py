@@ -54,11 +54,11 @@ def get_matching_result(source_path, target_path, trans_init=None, threshold=Non
     if threshold == None:
         threshold = 0.03
     if trans_init == None:
-        # trans_init = np.asarray([[1, 0, 0, 0],
-        #                     [0, 1, 0, 0],
-        #                     [0, 0, 1, 0], 
-        #                     [0, 0, 0, 1]])
-        trans_init = np.random.random(size=(4,4))
+        trans_init = np.asarray([[0, 0, 1, 0],
+                        [0, 1, 0, 0],
+                        [1, 0, 0, 0],
+                        [0, 0, 0, 1]])
+        # trans_init = np.random.random(size=(4,4))
     reg_p2p = o3d.pipelines.registration.registration_icp(
         source, target, threshold, trans_init,
         o3d.pipelines.registration.TransformationEstimationPointToPoint())
@@ -82,10 +82,12 @@ def pcd_matching(pcd_path, obj_cls, sample=True):
                     model_path = os.path.join(tag_path, file)
                     if not ('model_sample.pcd' if sample else'model.pcd') in os.listdir(model_path):
                         obj2pcd(model_path, sample)
-                    for i in range(10):
-                        result = get_matching_result(os.path.join(model_path, ('model_sample.pcd' if sample else'model.pcd')), pcd_path)
-                        if best_match == None or best_match[0].fitness < result.fitness:
-                            best_match = (result, model_path)
+                    #for i in range(10):
+                    result = get_matching_result(os.path.join(model_path, ('model_sample.pcd' if sample else'model.pcd')), pcd_path)
+                    if best_match == None or best_match[0].fitness < result.fitness:
+                        best_match = (result, model_path)
+    if best_match != None:
+        print(best_match[0])
     if best_match != None and best_match[0].fitness > MATCH_THRESHOLD:
         print(best_match[0])
         return best_match  

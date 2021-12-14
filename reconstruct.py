@@ -1,5 +1,6 @@
 import argparse
 import os
+from re import match
 from typing import Type
 import numpy as np
 import open3d as o3d
@@ -139,6 +140,9 @@ def get_world_R(cam_R):
     # world_R = R_from_yaw_pitch_roll(yaw, 0., 0.)
     return world_R
 
+def matching_visualize(best_match):
+    pass
+
 if __name__ == '__main__':
     args = parse_args()
     input_path = args.__dict__['input_path']
@@ -151,6 +155,11 @@ if __name__ == '__main__':
     pre_boxes = format_bbox(pre_box_data, 'prediction')
     pre_layout = format_layout(pre_layout_data)
     pre_cam_R = sio.loadmat(os.path.join(output_path, 'r_ex.mat'))['cam_R']
+    best_match = sio.loadmat(os.path.join(output_path, 'match.mat'))['best_match']
+
+    # matching_visualize(best_match)
+
+    # exit()
 
     o3d_objects, pre_boxes = format_mesh(glob(os.path.join(output_path, '*_s.obj')), pre_boxes)
 

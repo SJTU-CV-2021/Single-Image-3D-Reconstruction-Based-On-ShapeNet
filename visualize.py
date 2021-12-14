@@ -25,12 +25,13 @@ if __name__ == '__main__':
 
     pre_layout_data = sio.loadmat(os.path.join(save_path, 'layout.mat'))['layout']
     pre_box_data = sio.loadmat(os.path.join(save_path, 'bdb_3d.mat'))
-
+    
+    match_data = sio.loadmat(os.path.join(save_path, 'match.mat'))
     pre_boxes = format_bbox(pre_box_data, 'prediction')
     pre_layout = format_layout(pre_layout_data)
     pre_cam_R = sio.loadmat(os.path.join(save_path, 'r_ex.mat'))['cam_R']
 
-    vtk_objects, pre_boxes = format_mesh(glob(os.path.join(save_path, '*.obj')), pre_boxes)
+    vtk_objects, pre_boxes = format_mesh(glob(os.path.join(save_path, '*.obj')), pre_boxes, match_data)
 
     image = np.array(Image.open(os.path.join(cfg.config['demo_path'], 'img.jpg')).convert('RGB'))
     cam_K = np.loadtxt(os.path.join(cfg.config['demo_path'], 'cam_K.txt'))
