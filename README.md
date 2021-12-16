@@ -1,8 +1,9 @@
-## Total3DUnderstanding [[Project Page]](https://yinyunie.github.io/Total3D/)[[Oral Paper]](https://arxiv.org/abs/2002.12212)[[Talk]](https://www.youtube.com/watch?v=tq7jBhfdszI)
+## Single Image 3D Scene Reconstruction Based on ShapeNet Models [[Project Page]](https://github.com/SJTU-CV-2021/Single-Image-3D-Reconstruction-Based-On-ShapeNet)[[Oral Paper]]()
 
-**Total3DUnderstanding: Joint Layout, Object Pose and Mesh Reconstruction for Indoor Scenes from a Single Image** <br>
-Yinyu Nie, Xiaoguang Han, Shihui Guo, Yujian Zheng, Jian Chang, Jian Jun Zhang <br>
-In [CVPR, 2020](http://cvpr2020.thecvf.com/).
+> **Single Image 3D Scene Reconstruction Based on ShapeNet Models**
+Xueyang Chen*, Yifan Ren*, Yaoxu Song*
+*Zhiyuan College, Shanghai Jiao Tong University, Shanghai 200240, People’s Republic of China
+
 
 <img src="demo/inputs/1/img.jpg" alt="img.jpg" width="20%" /> <img src="demo/outputs/1/3dbbox.png" alt="3dbbox.png" width="20%" /> <img src="demo/outputs/1/recon.png" alt="recon.png" width="20%" /> <br>
 <img src="demo/inputs/2/img.jpg" alt="img.jpg" width="20%" /> <img src="demo/outputs/2/3dbbox.png" alt="3dbbox.png" width="20%" /> <img src="demo/outputs/2/recon.png" alt="recon.png" width="20%" />
