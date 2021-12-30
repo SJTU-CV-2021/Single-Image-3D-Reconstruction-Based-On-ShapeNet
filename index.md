@@ -22,13 +22,4 @@ As illustrated in above figure, we propose an end-to-end method given a single i
 
 ---
 ### Video
-
-<iframe
-    width="640"
-    height="480"
-    src="https://www.youtube.com/embed/DTbczljzn0k"
-    frameborder="0"
-    allow="autoplay; encrypted-media"
-    allowfullscreen
->
-</iframe>
+[![IMAGE_ALT](https://img.youtube.com/vi/DTbczljzn0k/0.jpg)](https://youtube.com/watch?v=DTbczljzn0k)
