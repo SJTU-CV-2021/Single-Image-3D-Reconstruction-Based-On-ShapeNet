@@ -546,7 +546,7 @@ class Scene3D(object):
 
         '''draw camera coordinate system'''
         color = [[0., 1., 1.], [1., 0., 1.], [1., 1., 0.]]
-        center = [0,0,0]
+        center = [0, 0, 0]
         vectors = cam_R.T
         for index in range(vectors.shape[0]):
             arrow_actor = self.set_arrow_actor(center, vectors[index])
