@@ -1,5 +1,5 @@
----
-marp: true
----
-
-# Single Image 3D Scene Reconstruction Based on ShapeNet Models
+How fascinating it would be if what you can see can be digitized immediately into 3d scenes or models for later interaction. 
+Reconstructing the image captured by the camera into a 3D scene is one way to accomplish Mixed Reality.
+Besides cameras, there are far more single images stored in various places and devices, which can also be used in 3D scene reconstruction. 
+However, the method of 3d scene reconstruction using only a single image may not produce pleasing results of regularized models. 
+In past research, many irregular depressions or protrusions are encountered on the reconstructed models. As you can imagine, with merely a single image, there is too little information to determine the shape of the obscured object. But it might be improved, if other prior knowledge is introduced, such as the Application Scenarios. In particular, for indoor artificial objects, the task to generate corresponding models can be accomplished more easily.
