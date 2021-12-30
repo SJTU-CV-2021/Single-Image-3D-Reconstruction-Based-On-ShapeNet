@@ -1,8 +1,7 @@
 ## Single Image 3D Scene Reconstruction Based on ShapeNet Models [[Project Page]](https://sjtu-cv-2021.github.io/Single-Image-3D-Reconstruction-Based-On-ShapeNet/)[[Oral Paper]](paper.pdf)
 
 > **Single Image 3D Scene Reconstruction Based on ShapeNet Models**
-Xueyang Chen*, Yifan Ren*, Yaoxu Song*
->
+> Xueyang Chen*, Yifan Ren*, Yaoxu Song*
 > *Zhiyuan College, Shanghai Jiao Tong University, Shanghai 200240, People’s Republic of China
 
 
