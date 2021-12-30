@@ -24,8 +24,16 @@ As illustrated in above figure, we propose an end-to-end method given a single i
 
 
 ### Video
-[![IMAGE_ALT](https://img.youtube.com/vi/3ho8UDLv-UQ/hqdefault.jpg)](https://youtube.com/watch?v=3ho8UDLv-UQ)
-
+<!--[![IMAGE_ALT](https://img.youtube.com/vi/3ho8UDLv-UQ/hqdefault.jpg)](https://youtube.com/watch?v=3ho8UDLv-UQ)-->
+<iframe
+    width="640"
+    height="480"
+    src="https://www.youtube.com/embed/3ho8UDLv-UQ"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen
+>
+</iframe>
 ---
 
 
