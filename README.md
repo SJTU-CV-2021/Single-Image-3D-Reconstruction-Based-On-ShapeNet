@@ -40,44 +40,77 @@ python main.py configs/total3d.yaml --mode demo --demo_path demo/inputs/1
 
 ---
 ### Data preparation
-In our paper, we use [SUN-RGBD](https://rgbd.cs.princeton.edu/) to train our Layout Estimation Net (LEN) and Object Detection Net (ODN), and use [Pix3D](http://pix3d.csail.mit.edu/) to train our Mesh Generation Net (MGN).
+In our paper, we use [NYU-v2](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html) to evalue our Layout Estimation Net (LEN) and Object Detection Net (ODN), and use [ShapeNet](https://shapenet.org/) to as our model collection.
 
-##### Preprocess SUN-RGBD data
+#### Preprocess NYU-v2 data
 
-You can either directly download the processed training/testing data [[link](https://livebournemouthac-my.sharepoint.com/:u:/g/personal/ynie_bournemouth_ac_uk/EcA66Nb1aI1KitzX7avbE10BiHGzovf3rqQebeJHmFB4QA?e=4hE8zv)] to (recommended)
+1. Download the raw [NYU-v2 data](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html#raw_parts) to
 ```
-data/sunrgbd/sunrgbd_train_test_data
+data/nyuv2/dataset/
+```
+We recomand you to download the Misc part of the whold dataset. Then unzip all the files in the same directory.
+
+2. Download the class labels of objects in SUN RGB-D images [[link](http://horatio.cs.nyu.edu/mit/silberman/nyu_depth_v2/nyu_depth_v2_labeled.mat)] to 
+```
+data/nyuv2/dataset/nyu_depth_v2_labeled.mat
 ```
 
-or <br>
-<br>
-1. Download the raw [SUN-RGBD data](https://rgbd.cs.princeton.edu/data/SUNRGBD.zip) to
-```
-data/sunrgbd/Dataset/SUNRGBD
-```
-2. Download the 37 class labels of objects in SUN RGB-D images [[link](https://github.com/ankurhanda/sunrgbd-meta-data/blob/master/sunrgbd_train_test_labels.tar.gz)] to 
-```
-data/sunrgbd/Dataset/SUNRGBD/train_test_labels
-```
-3. Follow [this work](https://github.com/thusiyuan/cooperative_scene_parsing) to download the preprocessed clean data of SUN RGB-D [[link](https://drive.google.com/open?id=1XeCE87yACXxGisMTPPFb41u_AmQHetBE)] to
-```
-'data/sunrgbd/Dataset/data_clean'
-```
-4. Follow [this work](https://github.com/thusiyuan/cooperative_scene_parsing) to download the preprocessed ground-truth of SUN RGB-D [[link](https://drive.google.com/open?id=1QUbq7fRtJtBPkSJbIsZOTwYR5MwtZuiV)], and put the '3dlayout' and 'updated_rtilt' folders respectively to
-```
-data/sunrgbd/Dataset/3dlayout
-data/sunrgbd/Dataset/updated_rtilt
-```
-5. Run below to generate training and testing data in 'data/sunrgbd/sunrgbd_train_test_data'.
-```
-python utils/generate_data.py
-```
-&nbsp;&nbsp; If everything goes smooth, a ground-truth scene will be visualized like
+3. Then, your directory tree should look like this:
 
-<img src="demo/gt_scene.png" alt="gt_scene.png" width="40%" align="center" />
+```
+Single-Image-3D-Reconstruction-Based-On-ShapeNet
+├── data
+    ├── nyuv2
+		├── dataset
+			├── computer_lab_0001
+			├── computer_lab_0002
+			├── conference_room_0001
+			├── conference_room_0002
+			├── dentist_office_0001
+			├── dentist_office_0002
+			├── dinette_0001
+			├── excercise_room_0001
+			├── foyer_0001
+			├── foyer_0002
+			├── home_storage_0001
+			├── indoor_balcony_0001
+			├── laundry_room_0001
+			├── misc_part1.zip
+			├── misc_part2.zip
+			├── nyu_depth_v2_labeled.mat
+			├── patio_0001
+			├── printer_room_0001
+			└── student_lounge_0001
+```
 
+4. Run below to format the testing data in 'data/nyuv2/dataset'.
+```
+cd data/nyuv2
+python format.py
+```
 
-##### Preprocess Pix3D data
+5. If everything goes smooth, there will be a new folder generated in `nyuv2`.
+```
+Single-Image-3D-Reconstruction-Based-On-ShapeNet
+├── data
+│   ├── nyuv2
+│   │   ├── dataset
+│   │   ├── format
+		│   ├── 1
+		│   │   ├── cam_K.txt
+		│   │   ├── detections.json
+		│   │   ├── img.jpg
+		│   │   └── labeled.png
+		│   ├── 2
+		│   │   ├── cam_K.txt
+		│   │   ├── detections.json
+		│   │   ├── img.jpg
+		│   │   └── labeled.png
+		│   ├── ...
+│   │   ├── format.py
+```
+
+##### Preprocess ShapeNet data
 You can either directly download the preprocessed ground-truth data [[link](https://livebournemouthac-my.sharepoint.com/:u:/g/personal/ynie_bournemouth_ac_uk/EWR0YQN_BjBMg6XbgzHcWg4BpNZywXGSMI-1VnnWZ1CFyg?e=TYhUv8)] to (recommended)
 ```
 data/pix3d/train_test_data
