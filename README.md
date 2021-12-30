@@ -16,26 +16,12 @@ This implementation uses Python 3.6, [Pytorch1.1.0](http://pytorch.org/), cudato
 * Install with conda:
 ```
 conda env create -f environment.yml
-conda activate Total3D
+conda activate SIRS
 ```
 
 * Install with pip:
 ```
 pip install -r requirements.txt
-```
-
----
-
-### Demo
-The pretrained model can be download [here](https://livebournemouthac-my.sharepoint.com/:u:/g/personal/ynie_bournemouth_ac_uk/EWuyQXemB25Gq5ssOZfFKyQBA7w2URXR3HLvjJiKkChaiA?e=0Zk9n0). We also provide the pretrained Mesh Generation Net [here](https://livebournemouthac-my.sharepoint.com/:u:/g/personal/ynie_bournemouth_ac_uk/EcbwpViMFQNCluHzWF8P5-gBFjVWjlqp9v3aK4BE41M3Gw?e=cX98bJ). Put the pretrained models under
-```
-out/pretrained_models
-```
-
-A demo is illustrated below to see how the method works. [vtk](https://vtk.org/) is used here to visualize the 3D scenes. The outputs will be saved under 'demo/outputs'. You can also play with your toy with this script.
-```
-cd Total3DUnderstanding
-python main.py configs/total3d.yaml --mode demo --demo_path demo/inputs/1
 ```
 
 ---
@@ -62,25 +48,13 @@ Single-Image-3D-Reconstruction-Based-On-ShapeNet
 ├── data
     ├── nyuv2
 		├── dataset
+			├── nyu_depth_v2_labeled.mat
+			├── misc_part1.zip
+			├── misc_part2.zip
 			├── computer_lab_0001
 			├── computer_lab_0002
 			├── conference_room_0001
-			├── conference_room_0002
-			├── dentist_office_0001
-			├── dentist_office_0002
-			├── dinette_0001
-			├── excercise_room_0001
-			├── foyer_0001
-			├── foyer_0002
-			├── home_storage_0001
-			├── indoor_balcony_0001
-			├── laundry_room_0001
-			├── misc_part1.zip
-			├── misc_part2.zip
-			├── nyu_depth_v2_labeled.mat
-			├── patio_0001
-			├── printer_room_0001
-			└── student_lounge_0001
+			├── ...
 ```
 
 4. Run below to format the testing data in 'data/nyuv2/dataset'.
@@ -96,131 +70,50 @@ Single-Image-3D-Reconstruction-Based-On-ShapeNet
 │   ├── nyuv2
 │   │   ├── dataset
 │   │   ├── format
-		│   ├── 1
-		│   │   ├── cam_K.txt
-		│   │   ├── detections.json
-		│   │   ├── img.jpg
-		│   │   └── labeled.png
-		│   ├── 2
-		│   │   ├── cam_K.txt
-		│   │   ├── detections.json
-		│   │   ├── img.jpg
-		│   │   └── labeled.png
-		│   ├── ...
+	│   │   ├── inputs
+			│   ├── 1
+			│   │   ├── cam_K.txt
+			│   │   ├── detections.json
+			│   │   ├── img.jpg
+			│   │   └── labeled.png
+			│   ├── 2
+			│   ├── ...
 │   │   ├── format.py
 ```
 
 ##### Preprocess ShapeNet data
-You can either directly download the preprocessed ground-truth data [[link](https://livebournemouthac-my.sharepoint.com/:u:/g/personal/ynie_bournemouth_ac_uk/EWR0YQN_BjBMg6XbgzHcWg4BpNZywXGSMI-1VnnWZ1CFyg?e=TYhUv8)] to (recommended)
-```
-data/pix3d/train_test_data
-```
-Each sample contains the object class, 3D points (sampled on meshes), sample id and object image (w.o. mask). Samples in the training set are flipped for augmentation.
 
-or <br>
-<br>
+Download the [ShapeNetCore](https://shapenet.org/download/shapenetcore) to 
+```
+data/ShapeNetCore/
+```
+Unzip them and nothing else to do. It will be look like:
 
-1. Download the [Pix3D dataset](http://pix3d.csail.mit.edu/) to 
 ```
-data/pix3d/metadata
+data/ShapeNetCore
+├── taxonomy.json
+├── 02691156
+├── 02691156.csv
+├── 02691156.zip
+├── 02747177
+├── 02747177.csv
+├── 02747177.zip
+├── ...
 ```
-2. Run below to generate the train/test data into 'data/pix3d/train_test_data'
-```
-python utils/preprocess_pix3d.py
-```
-
----
-### Training and Testing
-We use the configuration file (see 'configs/****.yaml') to fully control the training/testing process. There are three subtasks in Total3D (layout estimation, object detection and mesh reconstruction). We first pretrain each task individually followed with joint training.
-
-
-##### Pretraining
-1. Switch the keyword in 'configs/total3d.yaml' between ('layout_estimation', 'object_detection') as below to pretrain the two tasks individually.
-```
-train:
-  phase: 'layout_estimation' # or 'object_detection'
-
-python main.py configs/total3d.yaml --mode train
-```
-The two pretrained models can be correspondingly found at 
-```
-out/total3d/a_folder_named_with_script_time/model_best.pth
-```
-
-2. Train the Mesh Generation Net by:
-```
-python main.py configs/mgnet.yaml --mode train
-```
-The pretrained model can be found at
-```
-out/mesh_gen/a_folder_named_with_script_time/model_best.pth
-```
-
-##### Joint training
-
-List the addresses of the three pretrained models in 'configs/total3d.yaml', and modify the phase name to 'joint' as
-```
-weight: ['folder_to_layout_estimation/model_best.pth', 'folder_to_object_detection/model_best.pth', 'folder_to_mesh_recon/model_best.pth']
-
-train:
-  phase: 'joint'
-```
-Then run below for joint training.
-```
-python main.py configs/total3d.yaml --mode train
-```
-The trained model can be found at
-```
-out/total3d/a_folder_named_with_script_time/model_best.pth
-```
-
-##### Testing
-Please make sure the weight path is renewed as 
-```
-weight: ['folder_to_fully_trained_model/model_best.pth']
-```
-and run
-```
-python main.py configs/total3d.yaml --mode test
-```
-
-This script generates all 3D scenes on the test set of SUN-RGBD under
-```
-out/total3d/a_folder_named_with_script_time/visualization
-```
-
-You can also visualize a 3D scene given the sample id as
-```
-python utils/visualize.py --result_path out/total3d/a_folder_named_with_script_time/visualization --sequence_id 274
-```
-
-##### Differences to the paper
-1. We retrained the model with the learning rate decreases to half if there is no gain within five steps, which is much more efficient.
-2. We do not provide the Faster RCNN code. Users can train their 2D detector with [[link](https://github.com/facebookresearch/maskrcnn-benchmark)].
 
 ---
-
-### Citation
-If you find our work is helpful, please cite
+### Run
+We use the pretrained model by Total3D, and it is already download in `out/pretrained_models`. You can run our project directly to get the reconstruction result from the formated data.
 ```
-@InProceedings{Nie_2020_CVPR,
-author = {Nie, Yinyu and Han, Xiaoguang and Guo, Shihui and Zheng, Yujian and Chang, Jian and Zhang, Jian Jun},
-title = {Total3DUnderstanding: Joint Layout, Object Pose and Mesh Reconstruction for Indoor Scenes From a Single Image},
-booktitle = {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-month = {June},
-year = {2020}
-}
+python main.py configs/total3d.yaml --demo_path data/nyuv2/format/inputs/1
 ```
-Our method partially follows the data processing steps in [this work](https://github.com/thusiyuan/cooperative_scene_parsing). If it is also helpful to you, please cite
+The result will be saved in `data/nyuv2/format/outputs/1`. Try other formated data as you want!
+
+### Visualize
+
+Do to the speed of our matching process, we split out the visualization independently.
+
 ```
-@inproceedings{huang2018cooperative,
-  title={Cooperative Holistic Scene Understanding: Unifying 3D Object, Layout, and Camera Pose Estimation},
-  author={Huang, Siyuan and Qi, Siyuan and Xiao, Yinxue and Zhu, Yixin and Wu, Ying Nian and Zhu, Song-Chun},
-  booktitle={Advances in Neural Information Processing Systems},
-  pages={206--217},
-  year={2018}
-}	
+python visualize.py configs/total3d.yaml --demo_path data/nyuv2/format/inputs/1
 ```
-
-
-
+---
