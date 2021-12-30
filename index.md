@@ -1,4 +1,4 @@
-## Single Image 3D Scene Reconstruction Based on ShapeNet Models [[Project Page]](https://github.com/SJTU-CV-2021/Single-Image-3D-Reconstruction-Based-On-ShapeNet)[[Oral Paper]]()
+## Single Image 3D Scene Reconstruction Based on ShapeNet Models [[Project Page]](https://github.com/SJTU-CV-2021/Single-Image-3D-Reconstruction-Based-On-ShapeNet)[[Oral Paper]](paper.pdf)
 
 > **Single Image 3D Scene Reconstruction Based on ShapeNet Models**
 Xueyang Chen*, Yifan Ren*, Yaoxu Song*
