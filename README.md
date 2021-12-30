@@ -70,14 +70,14 @@ Single-Image-3D-Reconstruction-Based-On-ShapeNet
 │   ├── nyuv2
 │   │	├── dataset
 │   │	├── format
-|	|	|   ├── inputs
-|	|	|	│   ├── 1
-|	|	|	│   │   ├── cam_K.txt
-|	|	|	│   │   ├── detections.json
-|	|	|	│   │   ├── img.jpg
-|	|	|	│   │   └── labeled.png
-|	|   |	│   ├── 2
-|	|   |	│   ├── ...
+|   |	|   ├── inputs
+|   |	|	│   ├── 1
+|   |	|	│   │   ├── cam_K.txt
+|   |	|	│   │   ├── detections.json
+|   |   |	│   │   ├── img.jpg
+|   |   |	│   │   └── labeled.png
+|   |   |	│   ├── 2
+|   |   |	│   ├── ...
 │   │   ├── format.py
 ```
 
