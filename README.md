@@ -57,7 +57,7 @@ Single-Image-3D-Reconstruction-Based-On-ShapeNet
 |   |   |   ├── ...
 ```
 
-4. Run below to format the testing data in 'data/nyuv2/dataset'.
+4. Run below to format the testing data in `data/nyuv2/dataset`.
 ```
 cd data/nyuv2
 python format.py
