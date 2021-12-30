@@ -47,14 +47,14 @@ data/nyuv2/dataset/nyu_depth_v2_labeled.mat
 Single-Image-3D-Reconstruction-Based-On-ShapeNet
 ├── data
 |   ├── nyuv2
-|	|	├── dataset
-|	|   |	├── nyu_depth_v2_labeled.mat
-|	|   |	├── misc_part1.zip
-|	|   |	├── misc_part2.zip
-|	|   |	├── computer_lab_0001
-|	|   |	├── computer_lab_0002
-|	|   |	├── conference_room_0001
-|	|   |	├── ...
+|   |   ├── dataset
+|   |   |   ├── nyu_depth_v2_labeled.mat
+|   |   |   ├── misc_part1.zip
+|   |   |   ├── misc_part2.zip
+|   |   |   ├── computer_lab_0001
+|   |   |   ├── computer_lab_0002
+|   |   |   ├── conference_room_0001
+|   |   |   ├── ...
 ```
 
 4. Run below to format the testing data in 'data/nyuv2/dataset'.
@@ -68,16 +68,16 @@ python format.py
 Single-Image-3D-Reconstruction-Based-On-ShapeNet
 ├── data
 │   ├── nyuv2
-│   │	├── dataset
-│   │	├── format
-|   |	|   ├── inputs
-|   |	|	│   ├── 1
-|   |	|	│   │   ├── cam_K.txt
-|   |	|	│   │   ├── detections.json
-|   |   |	│   │   ├── img.jpg
-|   |   |	│   │   └── labeled.png
-|   |   |	│   ├── 2
-|   |   |	│   ├── ...
+│   │   ├── dataset
+│   │   ├── format
+|   |   |   ├── inputs
+|   |   |   │   ├── 1
+|   |   |   │   │   ├── cam_K.txt
+|   |   |   │   │   ├── detections.json
+|   |   |   │   │   ├── img.jpg
+|   |   |   │   │   └── labeled.png
+|   |   |   │   ├── 2
+|   |   |   │   ├── ...
 │   │   ├── format.py
 ```
 
@@ -92,15 +92,15 @@ Unzip them and nothing else to do. It will be look like:
 ```
 Single-Image-3D-Reconstruction-Based-On-ShapeNet
 ├── data
-|	├──	ShapeNetCore
-|	|	├── taxonomy.json
-|	|	├── 02691156
-|	|	├── 02691156.csv
-|	|	├── 02691156.zip
-|	|	├── 02747177
-|	|	├── 02747177.csv
-|	|	├── 02747177.zip
-|	|	├── ...
+|   ├── ShapeNetCore
+|   |   ├── taxonomy.json
+|   |   ├── 02691156
+|   |   ├── 02691156.csv
+|   |   ├── 02691156.zip
+|   |   ├── 02747177
+|   |   ├── 02747177.csv
+|   |   ├── 02747177.zip
+|   |   ├── ...
 ```
 
 ---
