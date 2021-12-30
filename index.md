@@ -2,9 +2,9 @@
 
 > **Single Image 3D Scene Reconstruction Based on ShapeNet Models**
 > 
-> Xueyang Chen*, Yifan Ren*, Yaoxu Song*
+> Xueyang Chen\*, Yifan Ren\*, Yaoxu Song\*
 > 
-> *Zhiyuan College, Shanghai Jiao Tong University, Shanghai 200240, People’s Republic of China
+> \*Zhiyuan College, Shanghai Jiao Tong University, Shanghai 200240, People’s Republic of China
 
 
 <img src="image/image11.jpg" alt="img.jpg" width="32%" /> <img src="image/image21.png" alt="recon.png" width="32%" /> <img src="image/image8.png" alt="recon.png" width="32%" /> 
