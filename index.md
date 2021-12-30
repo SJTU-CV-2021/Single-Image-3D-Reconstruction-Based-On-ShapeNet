@@ -40,3 +40,14 @@ As illustrated in above figure, we propose an end-to-end method given a single i
 
 ### Code and Data
 We provide source codes and related data of the project on [**[Our Github Page]**](https://github.com/SJTU-CV-2021/Single-Image-3D-Reconstruction-Based-On-ShapeNet)
+
+
+### Citation
+```
+@article{SIRS
+    author = {Xueyang Chen, Yifan Ren, Yaoxu Song},
+    title = {Single Image 3D Scene Reconstruction Based on ShapeNet Models},
+    year = {2021},
+    howpublished={\url{https://sjtu-cv-2021.github.io/Single-Image-3D-Reconstruction-Based-On-ShapeNet/}}
+}
+```
