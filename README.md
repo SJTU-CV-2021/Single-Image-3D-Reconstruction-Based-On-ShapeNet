@@ -103,7 +103,7 @@ data/ShapeNetCore
 
 ---
 ### Run
-We use the pretrained model by Total3D, and it is already download in `out/pretrained_models`. You can run our project directly to get the reconstruction result from the formated data.
+We use the [pretrained model](https://livebournemouthac-my.sharepoint.com/personal/ynie_bournemouth_ac_uk/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fynie%5Fbournemouth%5Fac%5Fuk%2FDocuments%2FTotal3D%2Fpretrained%5Fmodel%2Epth&parent=%2Fpersonal%2Fynie%5Fbournemouth%5Fac%5Fuk%2FDocuments%2FTotal3D) by Total3D, and it should be download in `out/pretrained_models/pretrained_model.pth`. You can run our project directly to get the reconstruction result from the formated data.
 ```
 python main.py configs/total3d.yaml --demo_path data/nyuv2/format/inputs/1
 ```
