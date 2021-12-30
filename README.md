@@ -68,14 +68,14 @@ python format.py
 Single-Image-3D-Reconstruction-Based-On-ShapeNet
 ├── data
 │   ├── nyuv2
-│   │   ├── dataset
-│   │   ├── format
-|	|   |   ├── inputs
-|	|   |	│   ├── 1
-|	|   |	│   │   ├── cam_K.txt
-|	|   |	│   │   ├── detections.json
-|	|   |	│   │   ├── img.jpg
-|	|   |	│   │   └── labeled.png
+│   │	├── dataset
+│   │	├── format
+|	|	|   ├── inputs
+|	|	|	│   ├── 1
+|	|	|	│   │   ├── cam_K.txt
+|	|	|	│   │   ├── detections.json
+|	|	|	│   │   ├── img.jpg
+|	|	|	│   │   └── labeled.png
 |	|   |	│   ├── 2
 |	|   |	│   ├── ...
 │   │   ├── format.py
@@ -91,7 +91,7 @@ Unzip them and nothing else to do. It will be look like:
 
 ```
 Single-Image-3D-Reconstruction-Based-On-ShapeNet
-├──data
+├── data
 |	├──	ShapeNetCore
 |	|	├── taxonomy.json
 |	|	├── 02691156
