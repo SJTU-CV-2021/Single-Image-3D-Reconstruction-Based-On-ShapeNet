@@ -1,2 +1,3 @@
 *.pth
 talk/*
+.DS_Store
